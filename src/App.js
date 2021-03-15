@@ -1,24 +1,15 @@
-import logo from './logo.svg';
-import './App.css';
+/* eslint-disable jsx-a11y/anchor-is-valid */
+import Logo from './components/Logo/Logo';
+import Form from './components/Form/Form';
+import CopyRight from './components/CopyRight/CopyRight'
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <main className="container">
+      <Logo type='colorful'>쿠팡 웹사이트</Logo> 
+      <Form>로그인 페이지</Form>
+      <CopyRight />
+    </main>
   );
 }
 

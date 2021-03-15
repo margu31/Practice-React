@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <main className="container">
+    <form action="">
+      <h2 className="offscreen">로그인 페이지</h2>
+      <fieldset>
+        <legend className="offscreen">로그인</legend>
+        <div className="text-box input-id">
+          <img src="./assets/icons/shape=letter.svg" alt="아이디 입력란" />
+          <label for="email" className="offscreen">아이디 입력란</label>
+          <input className="linetext" type="text" placeholder="아이디(이메일)" id="email" name="email" />
+        </div>
+        <div className="text-box input-pw">
+          <img src="./assets/icons/shape=lock.svg" alt="비밀번호 입력란" />
+          <label for="pw" className="offscreen">비밀번호 입력란</label>
+          <input className="linetext" type="text" placeholder="비밀번호" id="pw" name="pw" />
+          <button type="button" className="button showing-pw"><img src="./assets/icons/shape=show.svg" alt="비밀번호 보기" /></button>
+        </div>
+        <input type="checkbox" id="auto-login" name="auto-login" /> 
+        <label for="auto-login">자동 로그인</label>
+        <a href="#" className="button finding">아이디(이메일)/비밀번호 찾기 <span> &#62; </span></a>
+        <button className="button btn-login">로그인</button>
+        <button className="button btn-signin">회원가입</button>
+      </fieldset>
+    </form>
+    <small>&copy; Coupang Corp. All rights reserved.</small>
+  </main>
+</body>
+</html>
