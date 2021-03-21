@@ -1,5 +1,12 @@
 import { useEffect, useState } from 'react';
 import getList from '../../utils/Apis';
+import { 
+  movieContainer, 
+  movieStyle, 
+  movieRating, 
+  movieTitle, 
+  detailButton 
+} from './MovieList.module.scss';
 
 export default function MovieLists () {
   // console.log(useState());
@@ -15,13 +22,15 @@ export default function MovieLists () {
   },[]);
   
   return ( 
-    <ul>
-      {/* {movieList.map((movie) => <li key={movie.id}>{movie.title}</li>)} */}
+    <ul className={movieContainer}>
       {movieList.map(({id, title, rating, url, medium_cover_image}) => 
-        <li key={id}>
+        <li key={id} className={movieStyle}>
           <img src={medium_cover_image} alt="" />
-          <span>평점: {rating}</span><p>{title}</p>
-          <button type="button"><a href={url}>Movie Details</a></button>
+          <p className={movieRating}>🏆 Rating <span>{rating}</span></p>
+          <p className={movieTitle}>{title}</p>
+          <button type="button" className={detailButton}>
+            <a href={url} target="_blank" rel="noopener noreferrer">Movie Details</a>
+          </button>
         </li>
       )}
     </ul>

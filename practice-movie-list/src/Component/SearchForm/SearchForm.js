@@ -1,14 +1,16 @@
+import { ReactComponent as SearchIcon } from '../Icons/searchIcon.svg';
+import { searchContainer, searchInput } from './SearchForm.module.scss';
 
 export default function SearchForm () {
-
-
   return (
-    <div>
-      <form>
-        <label htmlFor="findingMovie">영화 검색</label>
-        <input id="findingMovie" type="text" />
-        <button type="button">Search!</button>
-      </form>
+    <div className={searchContainer}>
+      <label htmlFor="findingMovie"><SearchIcon /></label>
+      <input 
+        className={searchInput} 
+        id="findingMovie" 
+        type="search" 
+        placeholder="Search the Movie!" 
+      />
     </div>
   );
 }

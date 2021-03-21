@@ -1,10 +1,12 @@
-
-const logoPath = 'https://i.pinimg.com/originals/53/aa/d8/53aad883f8da7086db3ea43dfdadd9b2.jpg'
+import { ReactComponent as LogoImg } from '../../assets/DisneyLogo.svg';
+import { headerLogo } from './Logo.module.scss';
 
 const Logo = () => {
   return (
-    <h1><img src={logoPath} alt="" /></h1>
+    <h1 className={headerLogo}>
+      <LogoImg />
+    </h1>
   )
 }
 
-export default Logo 
+export default Logo;

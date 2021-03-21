@@ -1,0 +1,45 @@
+.movieContainer {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+  width: 1000px;
+  margin: 0 auto;
+  padding: 40px 0;
+
+  .movieStyle {
+    list-style: none;
+  }
+
+  p {
+    margin: 10px;
+  }
+
+  .movieRating {
+    // text-indent: 5px;
+    font-size: 14px;
+
+    span {
+      color: rgb(252, 88, 88);
+    }
+  }
+
+  .movieTitle {
+    font-size: 18px;
+    font-weight: 700;
+    color: #0858A3;
+  }
+
+  .detailButton {
+    background-color: #fff;
+    border: 1px solid #0e2060;
+    border-radius: 2px;
+    outline: none;
+    padding: 5px 10px;
+    margin-left: 10px;
+
+    a {
+      text-decoration: none;
+      color: #0e2060;
+    }
+  }
+}
