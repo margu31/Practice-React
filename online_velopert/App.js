@@ -61,26 +61,27 @@ function App () {
       email,
     };
     
-    setUsers([...users, user]);
+    // setUsers([...users, user]);
+    setUsers(users => users.concat(user));
     setInputs({
       username: '',
       email: ''
     });
     // console.log(nextId.current); // 4
     nextId.current += 1;
-  }, [username, email, users]);
+  }, [username, email]);
 
   const onRemove = useCallback(id => {
-    setUsers(users.filter( user => user.id !== id  ))
-  }, [users]);
+    setUsers(users => users.filter( user => user.id !== id  ))
+  }, []);
 
   const onToggle = useCallback(id => {
-    setUsers(users.map(
+    setUsers(users => users.map(
       user => user.id === id
         ? { ...user, active: !user.active }
         : user
     ));
-  }, [users]);
+  }, []);
 
   const count = useMemo(() => countActiveUsers(users), [users]);
 
