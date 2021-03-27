@@ -1,16 +1,20 @@
-import React, { useEffect } from 'react';
+// import React, { useEffect } from 'react';
+import React, { useContext } from 'react';
+import { UserDispatch } from './App';
 
-const User = React.memo(function User({ user, onRemove, onToggle }) {
+// const User = React.memo(function User({ user, onRemove, onToggle }) {
+const User = React.memo(function User({ user }) {
   const { username, email, id, active } = user;
+  const dispatch = useContext(UserDispatch);
 
-  useEffect(() => {
-    console.log('user 값이 설정됨');
-    console.log(user);
-    return () => {
-      console.log('user 값이 바뀌기 전');
-      console.log(user);
-    }
-  }, [user]);
+  // useEffect(() => {
+  //   console.log('user 값이 설정됨');
+  //   console.log(user);
+  //   return () => {
+  //     console.log('user 값이 바뀌기 전');
+  //     console.log(user);
+  //   }
+  // }, [user]);
 
   // useEffect(() => {
   //   console.log('컴포넌트가 화면에 나타남');
@@ -32,18 +36,27 @@ const User = React.memo(function User({ user, onRemove, onToggle }) {
           color: active ? 'green' : 'black', 
           cursor: 'pointer'
           }}
-          onclick={() => onToggle(id)}
+          // onclick={() => onToggle(id)}
+          onclick={() => dispatch({
+            type: 'TOGGLE_USER', 
+            id}
+          )}
         >
           {username}
         </b>
         &nbsp;
         <span>({email})</span>
-        <button onClick={() => onRemove(id)}>삭제</button>
+        {/* <button onClick={() => onRemove(id)}>삭제</button> */}
+        <button onClick={() => dispatch({
+          type: 'REMOVE_USER',
+          id
+        })}>삭제</button>
     </div>
   );
 });
 
-function UserList({ users, onRemove, onToggle }) {
+// function UserList({ users, onRemove, onToggle }) {
+function UserList({ users }) {
   // const users = [
   //   {
   //     id: 1, 
@@ -69,7 +82,8 @@ function UserList({ users, onRemove, onToggle }) {
       <User user={users[2]} /> */}
       {
         users.map(
-          (user) => (<User user={user} key={user.id} onRemove={onRemove} onToggle={onToggle} />)
+          // (user) => (<User user={user} key={user.id} onRemove={onRemove} onToggle={onToggle} />)
+          (user) => (<User user={user} key={user.id} />)
         )
       }
     </div>
