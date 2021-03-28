@@ -1,9 +1,12 @@
 import React from 'react';
 import Users from './Components/Users';
+import { UsersProvider } from './Context/UsersContext';
 
 function App() {
   return (
-    <Users />
+    <UsersProvider>
+      <Users />
+    </UsersProvider>
   );
 }
 
