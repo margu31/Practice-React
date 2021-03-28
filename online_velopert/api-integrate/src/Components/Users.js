@@ -2,7 +2,8 @@
 // import React, { useEffect, useReducer } from 'react';
 import React, { useState } from 'react';
 import axios from 'axios';
-import useAsync from '../Hook/useAsync';
+// import useAsync from '../Hook/useAsync';
+import { useAsync } from 'react-async';
 import User from './User';
 
 // LOADING, SUCCCESS, ERROR
@@ -70,13 +71,25 @@ function Users() {
   //   fetchUsers();
   // }, []);
 
-  const [state, refetch] = useAsync(getUsers, [], true);
+  // const [state, refetch] = useAsync(getUsers, [], true);
   const [userId, setUserId] = useState(null);
+  // const { data: users, error, isLoading, reload } = useAsync({
+  //   promiseFn: getUsers
+  // });
+  const { data: users, error, isLoading, reload, run } = useAsync({
+    deferFn: getUsers
+  });
 
-  const { loading, data: users, error } = state;
-  if (loading) return <div>로딩중..</div>;
+  // const { loading, data: users, error } = state;
+
+  // if (loading) return <div>로딩중..</div>;
+  // if (error) return <div>에러가 발생했습니다.</div>;
+  // if (!users) return <button onClick={refetch}>불러오기</button>;
+
+  if (isLoading) return <div>로딩중..</div>;
   if (error) return <div>에러가 발생했습니다.</div>;
-  if (!users) return <button onClick={refetch}>불러오기</button>;
+  // if (!users) return <button onClick={reload}>불러오기</button>;
+  if (!users) return <button onClick={run}>불러오기</button>;
 
   return (
     <>
@@ -88,7 +101,8 @@ function Users() {
         ))}
       </ul>
       {/* <button onClick={fetchUsers}>다시 불러오기</button> */}
-      <button onClick={refetch}>다시 불러오기</button>
+      {/* <button onClick={refetch}>다시 불러오기</button> */}
+      <button onClick={reload}>다시 불러오기</button>
       { userId && <User id={userId} />}
     </>
   );
