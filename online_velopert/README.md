@@ -91,3 +91,171 @@
 - `Route Config` : 배열로 path 사전 정의
 
 - `useReactRouter Hook`
+
+---
+
+## Redux
+
+리액트 생태계에서 가장 사용률이 높은 상태 관리 라이브러리
+Context API + useReducer와 매우 유사
+
+- Context를 사용하는 것과의 차이점?
+
+  1. 미들웨어 : 비동기 작업을 더욱 더 체계적으로 관리 가능
+  2. 유용한 함수와 Hooks 지원 받을 수 있음  
+     ex, `connet`, `useSelector`, `useDispatch`, `useStore`
+  3. 기본적인 최적화가 이미 되어있음
+  4. 모든 글로벌 상태를 하나의 커다란 객체로 만들어 사용
+  5. DevTools : 현재 상태를 한눈에 볼 수 있음, 지금까지 어떤 변화가 있었는지 알 수 있고, 특정 시점으로 상태 되돌릴 수도 있음
+  6. 이미.. 리덕스를 사용중인 프로젝트가 많음
+
+- 리덕스는 언제 써야할까?
+
+  - 프로젝트의 규모  
+    크다? Redux
+    크지 않다? Context API
+  - 비동기 작업 빈도수  
+    많다? Redux (+ middleware)
+    많지 않다? Context API
+  - 리덕스가 편하냐!?
+
+- Keywords
+
+  1. `Action` 객체 : type (필수), 어떻게 업데이트를 할 지 정의
+
+  ```js
+  {
+    type: 'CHANGE_INPUT',
+    text: '안뇽~?'
+  }
+  ```
+
+  2. `Action Creator` 함수 : 파라미터를 받아서 액션 객체를 만들어주는 함수
+
+  ```js
+  export function addTodo(data) {
+    return {
+      type: "ADD_TODO",
+      data,
+    };
+  }
+  // 화살표 함수도 가능
+  export const changeInput = (text) => ({
+    type: "CHANGE_INPUT",
+    text,
+  });
+  ```
+
+  3. `Reducer`
+     - 변화를 일으키는 함수로 state와 action 파라미터를 받음
+     - action 타입이 무엇이냐에 따라 업데이트 작업
+     - 불변성 유지!
+
+  ```js
+  function counter(state, action) {
+    switch (action.type) {
+      case "INCREASE":
+        return state + 1;
+      case "DECREASE":
+        return state - 1;
+      default:
+        // 기존 reducer는 default에 에러를 발생시키는게 일반적이지만,
+        // 리덕스의 reducer는 기존의 state를 그대로 반환!
+        // 여러개의 리듀서를 합쳐 루트 리듀서를 만들기 때문
+        return state;
+    }
+  }
+  ```
+
+  4. `Store`
+     - 하나의 애플리케이션 당 하나의 스토어!
+     - 스토어 안에는 현재 앱의 상태와 reducer가 들어있음
+  5. `dispatch` : store 내장 함수 중 하나로 액션을 발생시킴 (액션을 스토어한테 전달) - `dispatch({ type: 'INCREASE' })`
+  6. 구독 `subscribe` : store의 내장 함수 중 하나로 액션이 디스패치 되었을 때 마다 전달해준 함수가 호출
+
+- 리덕스의 3가지 규칙
+  1. 하나의 애플리케이션에 하나의 스토어만!
+  2. 상태는 읽기 전용! 불변성을 지켜야한다!
+  3. 변화를 일으키는 reducer는 순수 함수여야 한다  
+     리듀서 함수는 이전 상태와 액션 객체를 파라미터로 받음
+     이전 상태는 변경 No! 새로운 상태 객체를 만들어 반환해야 함
+     동일한 파라미터로 호출된 리듀서는 언제나 똑같은 결과값을 반환해야한다
+     - new Date(), Math.random(), axios.get() 같은 함수 쓰지마~
+
+---
+
+- store, subscribe, dispatch
+
+```js
+import { createStore } from "redux";
+
+const initialState = {
+  counter: 0,
+  text: "",
+  list: [],
+};
+
+const INCREASE = "INCREASE";
+const DECREASE = "DECREASE";
+const CHANGE_TEXT = "CHANGE_TEXT";
+const ADD_TO_LIST = "ADD_TO_LIST";
+
+const increase = () => ({ type: INCREASE });
+const decrease = () => ({ type: DECREASE });
+const changeText = (text) => ({ type: CHANGE_TEXT, text });
+const addToList = (item) => ({ type: ADD_TO_LIST, item });
+
+function reducer(state = initialState, action) {
+  switch (action.type) {
+    case INCREASE:
+      return {
+        ...state,
+        counter: state.counter + 1,
+      };
+    case DECREASE:
+      return {
+        ...state,
+        counter: state.counter - 1,
+      };
+    case CHANGE_TEXT:
+      return {
+        ...state,
+        text: action.text,
+      };
+    case ADD_TO_LIST:
+      return {
+        ...state,
+        list: state.list.concat(action.item),
+      };
+    default:
+      return state;
+  }
+}
+
+const store = createStore(reducer);
+// 현재 store 안에 있는 상태 조회 -> store.getState()
+// console.log(store.getState());
+
+const listener = () => {
+  const state = store.getState();
+  console.log(state);
+};
+
+// 구독
+const unsubscribe = store.subscribe(listener);
+// 구독 해제
+// unsubscribe();
+
+store.dispatch(increase());
+store.dispatch(decrease());
+store.dispatch(changeText("안뇽~?"));
+store.dispatch(addToList({ id: 1, text: "Wow! " }));
+
+// 아래 코드 작성하고 콘솔 창에서 store 치면 store안에 들어있는거 볼 수 있음
+// {dispatch: ƒ, subscribe: ƒ, getState: ƒ, replaceReducer: ƒ, Symbol(observable): ƒ}
+window.store = store;
+```
+
+![브라우저 콘솔창에서 store 확인](./learn-redux/window.store.PNG)
+
+---
