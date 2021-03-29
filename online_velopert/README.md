@@ -259,3 +259,7 @@ window.store = store;
 ![브라우저 콘솔창에서 store 확인](./learn-redux/window.store.PNG)
 
 ---
+
+- 리덕스 모듈이란 ?  
+  액션 타입, 액션 생성 함수, 리듀서가 모두 들어있는 js파일을 의미
+  각각 다른 파일에 저장도 가능하지만 한 파일에 몰아서 작성하는 걸 권장(Ducks 패턴)
