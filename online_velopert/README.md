@@ -263,3 +263,15 @@ window.store = store;
 - 리덕스 모듈이란 ?  
   액션 타입, 액션 생성 함수, 리듀서가 모두 들어있는 js파일을 의미
   각각 다른 파일에 저장도 가능하지만 한 파일에 몰아서 작성하는 걸 권장(Ducks 패턴)
+
+- `connet`  
+  props를 통해 리덕스의 상태 또는 액션을 디스패치하는 함수 받아옴
+  별로 사용할 일 없음.. `useSelector`, `useDispatch` 써라!
+
+---
+
+- 리덕스 미들웨어
+  - 리덕스가 지니고 있는 핵심 기능으로 강력하다!
+  - 주로 비동기 작업을 처리할 때 사용 (ex, API 요청)
+  - 대표적인 라이브러리
+    redux-thunk, redux-saga, redux-observable, redux-promise-middleware 등
