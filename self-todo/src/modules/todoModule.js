@@ -20,12 +20,12 @@ export const toggleTodo = numbering => ({
 // 상태초기값
 const initialState = [];
 
-const todos = (state = initialState, action) => {
+const todosReducer = (state = initialState, action) => {
   // console.log(state);
   // console.log(todos)
   switch (action.type) {
     case ADD_TODO :
-      return state.concat(action.todo);
+      return state.concat(action.todo)
     case TOGGLE_TODO :
       return state.map(
         todo => todo.numbering === action.numbering 
@@ -37,4 +37,4 @@ const todos = (state = initialState, action) => {
   }
 };
 
-export default todos;
+export default todosReducer;

@@ -2,8 +2,8 @@ import { useState } from 'react';
 
 const TodoItem = ({ todo, onToggle }) => {
   return (
-    <li onClick={() => onToggle(todo.numbering)}>
-      <input type="checkbox" id={`todo-${todo.numbering}`} />
+    <li>
+      <input onClick={(e) => onToggle(todo.numbering, e)} type="checkbox" id={`todo-${todo.numbering}`} />
       <label htmlFor={`todo-${todo.numbering}`}>{todo.text}</label>
     </li>
   );
@@ -27,15 +27,19 @@ const TodoList = ({ todos, onCreate, onToggle }) => {
     onCreate(text);
     setText('');
   };
+  const onKeyDown = e => {
+    if (e.key === 'Enter'){
+      onSubmit(e)
+    } 
+  };
 
   return (
     <>
       <h2>📝 To Do List</h2>
-      <input value={text} placeholder="Write a to do list" onChange={onChange} />
+      <input value={text} placeholder="Write a list of what you need to do or what you want to do" onChange={onChange} onKeyDown={onKeyDown} />
       <button type="submit" onClick={onSubmit}>등록!</button>
-      <hr />
       <h3>🌼 You Can Do It 🌼</h3>
-      <TodoItemList todos={todos} onToggle={onToggle} />
+      <TodoItemList todos={todos} onToggle={onToggle}/>
     </>
   );
 };
