@@ -280,3 +280,9 @@ window.store = store;
   - 주로 비동기 작업을 처리할 때 사용 (ex, API 요청)
   - 대표적인 라이브러리
     redux-thunk, redux-saga, redux-observable, redux-promise-middleware 등
+
+---
+
+## redux-thunk
+
+- 액션 객체가 아닌 함수를 디스패치 할 수 있다
